@@ -633,10 +633,6 @@
     After your cooling-off period, decide with a clear head — buy or save.
   </p>
 
-  <form class="waitlist-form" onsubmit="heroSubmit(event)">
-    <input type="email" id="hero-email" placeholder="your@email.com" required autocomplete="email" />
-    <button type="submit">Notify Me 🔔</button>
-  </form>
   <p class="hero-note">Free to join. No spam.</p>
 
   <div class="store-badges">
@@ -840,13 +836,6 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   /* ── Form handlers ────────────────────────────────────────── */
-  function heroSubmit(e) {
-    e.preventDefault();
-    const email = document.getElementById('hero-email').value;
-    saveEmail(email);
-    e.target.innerHTML = '<p style="color:var(--sage);font-weight:500;font-size:0.95rem;">🎉 You\'re on the list! Talk soon.</p>';
-  }
-
   function mainSubmit() {
     const emailInput = document.getElementById('main-email');
     if (!emailInput.value || !emailInput.value.includes('@')) {
