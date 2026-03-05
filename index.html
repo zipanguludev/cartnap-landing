@@ -3,28 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CartNap – Let Your Cart Sleep On It</title>
-  <meta name="description" content="CartNap pauses your impulse buys with a mindful cooling-off period. Save money, shop smarter, feel better." />
+  <title>CartNap – Stop Impulse Buying</title>
+  <meta name="description" content="CartNap puts your impulse buys to sleep for 48 hours. Share a product link, let it nap, then decide: buy with intention or save the money. Free on Android." />
+  <link rel="icon" type="image/png" href="img/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ── Variables ─────────────────────────────────────────────── */
     :root {
       --ink:       #1a1a2e;
       --sage:      #6b8f71;
       --sage-lt:   #a8c5ad;
       --sand:      #f2ede4;
-      --warm:      #e8ddd0;
-      --amber:     #d4956a;
       --mist:      #dce8df;
+      --amber:     #d4956a;
       --white:     #fdfcf8;
+      --purple:    #7c6fe0;
+      --purple-lt: #ede9fb;
       --radius:    18px;
       --font-head: 'Playfair Display', Georgia, serif;
       --font-body: 'DM Sans', system-ui, sans-serif;
     }
-
-    /* ── Reset ─────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -33,77 +32,55 @@
       color: var(--ink);
       overflow-x: hidden;
     }
-
-    /* ── Noise Texture Overlay ─────────────────────────────────── */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.6;
+      pointer-events: none; z-index: 9999; opacity: 0.6;
     }
 
-    /* ── Navbar ────────────────────────────────────────────────── */
+    /* ── Navbar ── */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.25rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(253, 252, 248, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(107, 143, 113, 0.15);
+      top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(253,252,248,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(107,143,113,0.15);
     }
     .nav-logo {
       font-family: var(--font-head);
-      font-size: 1.4rem;
-      color: var(--ink);
+      font-size: 1.4rem; color: var(--ink);
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+      display: flex; align-items: center; gap: 0.5rem;
     }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
     .nav-logo span { color: var(--sage); }
-    .nav-cta {
-      background: var(--ink);
-      color: var(--white);
-      border: none;
-      padding: 0.6rem 1.4rem;
-      border-radius: 100px;
-      font-family: var(--font-body);
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
+    .btn-google-play-nav {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--ink); color: #fff;
+      padding: 9px 18px; border-radius: 50px;
+      font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
       transition: background 0.2s, transform 0.15s;
     }
-    .nav-cta:hover { background: var(--sage); transform: translateY(-1px); }
+    .btn-google-play-nav svg { width: 18px; height: 18px; }
+    .btn-google-play-nav:hover { background: var(--purple); transform: translateY(-1px); }
 
-    /* ── Hero ──────────────────────────────────────────────────── */
+    /* ── Hero ── */
     .hero {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       text-align: center;
-      padding: 8rem 1.5rem 4rem;
-      position: relative;
-      overflow: hidden;
+      padding: 9rem 1.5rem 5rem;
+      position: relative; overflow: hidden;
     }
-
-    /* Organic blob backgrounds */
     .hero::before, .hero::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.35;
-      animation: float 8s ease-in-out infinite alternate;
+      content: ''; position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: 0.35;
+      animation: floatBlob 8s ease-in-out infinite alternate;
     }
     .hero::before {
       width: 600px; height: 500px;
@@ -112,599 +89,383 @@
     }
     .hero::after {
       width: 500px; height: 400px;
-      background: radial-gradient(circle, #f0e6d8, transparent);
-      bottom: 0; right: -100px;
-      animation-delay: -4s;
+      background: radial-gradient(circle, #ede9fb, transparent);
+      bottom: 0; right: -100px; animation-delay: -4s;
     }
-
-    @keyframes float {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(30px, 20px) scale(1.05); }
+    @keyframes floatBlob {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px,20px) scale(1.05); }
     }
-
-    /* Sleeping cart icon */
-    .hero-icon {
-      font-size: 4.5rem;
-      margin-bottom: 1.5rem;
-      display: block;
+    .hero-logo {
+      width: 120px; height: 120px;
+      border-radius: 28px;
+      margin-bottom: 1.75rem;
+      position: relative; z-index: 1;
       animation: sway 3s ease-in-out infinite;
-      position: relative;
-      z-index: 1;
+      box-shadow: 0 12px 40px rgba(124,111,224,0.3);
     }
     @keyframes sway {
-      0%, 100% { transform: rotate(-3deg); }
-      50%       { transform: rotate(3deg); }
+      0%,100% { transform: rotate(-3deg); }
+      50%      { transform: rotate(3deg); }
     }
-
     .hero-badge {
-      display: inline-block;
-      background: var(--mist);
-      color: var(--sage);
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.35rem 1rem;
-      border-radius: 100px;
-      margin-bottom: 1.5rem;
-      position: relative;
-      z-index: 1;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--purple-lt); color: var(--purple);
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.35rem 1rem; border-radius: 100px;
+      margin-bottom: 1.5rem; position: relative; z-index: 1;
       animation: fadeUp 0.6s ease both;
     }
-
+    .badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--purple);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.5; transform:scale(1.4); }
+    }
     h1 {
       font-family: var(--font-head);
       font-size: clamp(2.8rem, 7vw, 5.5rem);
-      line-height: 1.1;
-      color: var(--ink);
-      max-width: 820px;
-      position: relative;
-      z-index: 1;
+      line-height: 1.1; color: var(--ink);
+      max-width: 820px; position: relative; z-index: 1;
       animation: fadeUp 0.7s 0.1s ease both;
     }
-    h1 em {
-      font-style: italic;
-      color: var(--sage);
-      white-space: nowrap;
-    }
-
+    h1 em { font-style: italic; color: var(--sage); white-space: nowrap; }
     .hero-sub {
       font-size: clamp(1rem, 2.5vw, 1.2rem);
-      color: #5a5a6e;
-      max-width: 540px;
-      line-height: 1.7;
-      margin-top: 1.5rem;
-      font-weight: 300;
-      position: relative;
-      z-index: 1;
+      color: #5a5a6e; max-width: 560px;
+      line-height: 1.7; margin-top: 1.5rem; font-weight: 300;
+      position: relative; z-index: 1;
       animation: fadeUp 0.7s 0.2s ease both;
     }
-
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
     }
-
-    /* Waitlist form */
-    .waitlist-form {
-      margin-top: 2.5rem;
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      position: relative;
-      z-index: 1;
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      justify-content: center; margin-top: 2.5rem;
+      position: relative; z-index: 1;
       animation: fadeUp 0.7s 0.3s ease both;
     }
-    .waitlist-form input {
-      padding: 0.85rem 1.4rem;
-      border-radius: 100px;
-      border: 1.5px solid rgba(107, 143, 113, 0.3);
-      background: rgba(255,255,255,0.85);
+    /* Badge Google Play — stile uguale all'altro sito */
+    .btn-google-play {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 14px 28px;
+      background: white; color: #111;
+      border-radius: 16px;
+      text-decoration: none;
       font-family: var(--font-body);
-      font-size: 0.95rem;
-      outline: none;
-      min-width: 260px;
-      transition: border-color 0.2s;
+      font-weight: 700; font-size: 1rem;
+      border: 1.5px solid rgba(26,26,46,0.1);
+      box-shadow: 0 4px 20px rgba(26,26,46,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .waitlist-form input:focus { border-color: var(--sage); }
-    .waitlist-form button {
-      padding: 0.85rem 2rem;
-      border-radius: 100px;
-      border: none;
-      background: var(--sage);
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    }
-    .waitlist-form button:hover {
-      background: var(--ink);
+    .btn-google-play:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(26,26,46,0.18);
+      box-shadow: 0 12px 40px rgba(26,26,46,0.15);
     }
-
+    .btn-google-play svg { width: 24px; height: 24px; flex-shrink: 0; }
+    .btn-google-play-text { text-align: left; line-height: 1.2; }
+    .btn-google-play-small { font-size: 0.65rem; font-weight: 400; opacity: 0.6; display: block; text-transform: uppercase; letter-spacing: 0.08em; }
+    .btn-google-play-big { font-size: 1rem; font-weight: 700; display: block; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--ink);
+      padding: 14px 28px; border-radius: 16px;
+      font-family: var(--font-body); font-size: 1rem; font-weight: 500;
+      text-decoration: none; border: 1.5px solid rgba(26,26,46,0.2); cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { border-color:var(--sage); background:var(--mist); transform:translateY(-1px); }
     .hero-note {
-      margin-top: 1rem;
-      font-size: 0.8rem;
-      color: #9090a8;
-      position: relative;
-      z-index: 1;
+      margin-top: 1rem; font-size: 0.8rem; color: #9090a8;
+      position: relative; z-index: 1;
       animation: fadeUp 0.7s 0.4s ease both;
     }
-
-    /* Store badges */
     .store-badges {
-      margin-top: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      opacity: 0.5;
-      filter: grayscale(1);
-      position: relative;
-      z-index: 1;
+      margin-top: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+      opacity: 0.45; filter: grayscale(1);
+      position: relative; z-index: 1;
       animation: fadeUp 0.7s 0.5s ease both;
-      font-size: 0.75rem;
-      color: #888;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 0.75rem; color: #888;
+      font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
     }
     .store-badges span { font-size: 1.5rem; }
 
-    /* ── How it works ──────────────────────────────────────────── */
+    /* ── How it works ── */
     .section { padding: 6rem 1.5rem; max-width: 1100px; margin: 0 auto; }
     .section-label {
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--sage);
-      margin-bottom: 1rem;
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 1rem;
     }
     .section-title {
       font-family: var(--font-head);
       font-size: clamp(2rem, 4.5vw, 3.2rem);
-      line-height: 1.15;
-      color: var(--ink);
-      max-width: 640px;
+      line-height: 1.15; color: var(--ink); max-width: 640px;
     }
-
     .steps {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2rem;
-      margin-top: 4rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 2rem; margin-top: 4rem;
     }
     .step {
-      background: var(--sand);
-      border-radius: var(--radius);
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
+      background: var(--sand); border-radius: var(--radius);
+      padding: 2rem; position: relative; overflow: hidden;
       transition: transform 0.25s, box-shadow 0.25s;
     }
-    .step:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(26,26,46,0.1); }
+    .step:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(26,26,46,0.1); }
     .step::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
+      content:''; position:absolute;
+      top:0; left:0; right:0; height:3px;
       background: linear-gradient(90deg, var(--sage), var(--sage-lt));
     }
     .step-num {
-      font-family: var(--font-head);
-      font-size: 3.5rem;
-      color: rgba(107,143,113,0.15);
-      line-height: 1;
-      margin-bottom: 1rem;
-      font-weight: 700;
+      font-family: var(--font-head); font-size: 3.5rem;
+      color: rgba(107,143,113,0.15); line-height: 1;
+      margin-bottom: 1rem; font-weight: 700;
     }
     .step-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
-    .step h3 {
-      font-family: var(--font-head);
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-      color: var(--ink);
-    }
+    .step h3 { font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink); }
     .step p { font-size: 0.9rem; line-height: 1.65; color: #5a5a6e; font-weight: 300; }
 
-    /* ── Features ──────────────────────────────────────────────── */
-    .features-section {
-      background: var(--ink);
-      color: var(--white);
+    /* ── Screenshots ── */
+    .screenshots-section {
       padding: 6rem 1.5rem;
+      background: var(--ink); overflow: hidden;
+    }
+    .screenshots-inner { max-width: 1100px; margin: 0 auto; }
+    .screenshots-section .section-label { color: var(--sage-lt); }
+    .screenshots-section .section-title { color: #fff; max-width: 700px; }
+    .screenshots-section .section-title em { font-style: italic; color: var(--sage-lt); }
+    .carousel-wrap {
+      margin-top: 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 3rem; align-items: start;
+    }
+    @media (max-width: 860px) {
+      .carousel-wrap { grid-template-columns: 1fr; }
+      .carousel-phone { order: -1; }
+    }
+    .carousel-tabs { display: flex; flex-direction: column; gap: 0.75rem; }
+    .c-tab {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 1.1rem 1.4rem;
+      cursor: pointer; text-align: left;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .c-tab:hover { background: rgba(255,255,255,0.1); }
+    .c-tab.active {
+      background: rgba(124,111,224,0.18);
+      border-color: rgba(124,111,224,0.5);
+      transform: translateX(6px);
+    }
+    .c-tab-label { font-size: 0.95rem; font-weight: 500; color: #fff; margin-bottom: 0.25rem; }
+    .c-tab-desc {
+      font-size: 0.8rem; color: rgba(255,255,255,0.45);
+      font-weight: 300; line-height: 1.5; display: none;
+    }
+    .c-tab.active .c-tab-desc { display: block; }
+    .c-tab-progress {
+      height: 2px; background: rgba(255,255,255,0.1);
+      border-radius: 2px; margin-top: 0.75rem;
+      display: none; overflow: hidden;
+    }
+    .c-tab.active .c-tab-progress { display: block; }
+    .c-tab-bar {
+      height: 100%; background: var(--purple);
+      border-radius: 2px; width: 0%;
+      transition: width 0.1s linear;
+    }
+    .carousel-phone { display: flex; justify-content: center; }
+    .phone-frame {
+      width: 260px; background: #111;
+      border-radius: 40px; padding: 12px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 30px 80px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .phone-notch {
+      width: 80px; height: 20px;
+      background: #111; border-radius: 0 0 14px 14px;
+      position: absolute; top: 12px;
+      left: 50%; transform: translateX(-50%); z-index: 2;
+    }
+    .phone-screen {
+      border-radius: 30px; overflow: hidden;
+      aspect-ratio: 9/19.5; position: relative; background: #1a1a2e;
+    }
+    .phone-screen img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: opacity 0.35s ease;
+    }
+    .phone-screen img.hidden { opacity: 0; }
+
+    /* ── Features ── */
+    .features-section {
+      background: #0f0f1a; color: var(--white); padding: 6rem 1.5rem;
     }
     .features-inner { max-width: 1100px; margin: 0 auto; }
     .features-section .section-label { color: var(--sage-lt); }
     .features-section .section-title { color: var(--white); }
-
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
     }
     .feature-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      padding: 1.75rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius); padding: 1.75rem;
       transition: background 0.25s, transform 0.25s;
     }
-    .feature-card:hover { background: rgba(255,255,255,0.09); transform: translateY(-4px); }
+    .feature-card:hover { background:rgba(255,255,255,0.08); transform:translateY(-4px); }
     .feature-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
-    .feature-card h4 {
-      font-family: var(--font-head);
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      color: var(--white);
-    }
-    .feature-card p { font-size: 0.875rem; line-height: 1.65; color: rgba(255,255,255,0.55); font-weight: 300; }
+    .feature-card h4 { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--white); }
+    .feature-card p { font-size: 0.875rem; line-height: 1.65; color: rgba(255,255,255,0.5); font-weight: 300; }
 
-    /* ── Timer Visual ──────────────────────────────────────────── */
-    .timer-section { padding: 6rem 1.5rem; }
-    .timer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    @media (max-width: 700px) { .timer-inner { grid-template-columns: 1fr; } }
-
-    .timer-visual {
-      background: var(--sand);
-      border-radius: 24px;
-      padding: 2.5rem;
-      text-align: center;
-      position: relative;
-    }
-    .timer-product {
-      background: var(--white);
-      border-radius: 14px;
-      padding: 1rem 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 4px 16px rgba(26,26,46,0.06);
-    }
-    .timer-product-img {
-      width: 52px; height: 52px;
-      background: var(--mist);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      flex-shrink: 0;
-    }
-    .timer-product-info { text-align: left; }
-    .timer-product-name { font-size: 0.85rem; font-weight: 500; color: var(--ink); }
-    .timer-product-price { font-size: 0.8rem; color: var(--sage); font-weight: 500; margin-top: 0.15rem; }
-
-    .timer-clock {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-    .clock-unit {
-      background: var(--ink);
-      color: var(--white);
-      border-radius: 10px;
-      padding: 0.75rem 0.6rem;
-      min-width: 58px;
-      text-align: center;
-    }
-    .clock-num {
-      font-family: var(--font-head);
-      font-size: 1.8rem;
-      line-height: 1;
-      display: block;
-    }
-    .clock-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.5; margin-top: 0.2rem; display: block; }
-    .clock-sep { font-family: var(--font-head); font-size: 1.8rem; align-self: center; opacity: 0.3; }
-
-    .timer-actions { display: flex; gap: 0.75rem; justify-content: center; }
-    .btn-buy {
-      background: transparent;
-      border: 1.5px solid rgba(26,26,46,0.2);
-      color: var(--ink);
-      padding: 0.6rem 1.2rem;
-      border-radius: 100px;
-      font-size: 0.8rem;
-      font-family: var(--font-body);
-      cursor: pointer;
-      font-weight: 500;
-    }
-    .btn-save {
-      background: var(--sage);
-      border: none;
-      color: var(--white);
-      padding: 0.6rem 1.2rem;
-      border-radius: 100px;
-      font-size: 0.8rem;
-      font-family: var(--font-body);
-      cursor: pointer;
-      font-weight: 500;
-    }
-    .timer-chip {
-      display: inline-block;
-      background: #fff0e8;
-      color: var(--amber);
-      font-size: 0.7rem;
-      padding: 0.3rem 0.75rem;
-      border-radius: 100px;
-      margin-bottom: 1rem;
-      font-weight: 500;
-    }
-
-    .timer-text .section-label { color: var(--sage); }
-    .timer-text .section-title { color: var(--ink); }
-    .timer-text p { margin-top: 1.25rem; font-size: 0.95rem; color: #5a5a6e; line-height: 1.75; font-weight: 300; max-width: 420px; }
-
-    /* ── Stats strip ───────────────────────────────────────────── */
-    .stats-strip {
-      background: var(--mist);
-      padding: 3.5rem 1.5rem;
-    }
+    /* ── Stats ── */
+    .stats-strip { background: var(--mist); padding: 3.5rem 1.5rem; }
     .stats-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 2rem;
-      text-align: center;
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+      gap: 2rem; text-align: center;
     }
-    .stat-value {
-      font-family: var(--font-head);
-      font-size: 3rem;
-      color: var(--ink);
-      line-height: 1;
+    .stat-value { font-family: var(--font-head); font-size: 3rem; color: var(--ink); line-height: 1; }
+    .stat-label { font-size: 0.85rem; color: #6e7a80; margin-top: 0.4rem; font-weight: 300; }
+
+    /* ── Download CTA ── */
+    .download-section {
+      padding: 7rem 1.5rem; text-align: center; background: var(--sand);
     }
-    .stat-label {
-      font-size: 0.85rem;
-      color: #6e7a80;
-      margin-top: 0.4rem;
-      font-weight: 300;
+    .download-section .section-title { margin: 0 auto 1rem; text-align: center; }
+    .download-section > p {
+      font-size: 1rem; color: #6a6a80;
+      max-width: 480px; margin: 0 auto 2.5rem;
+      line-height: 1.7; font-weight: 300;
+    }
+    .beta-pill {
+      display: inline-block;
+      background: var(--purple-lt); color: var(--purple);
+      font-size: 0.75rem; font-weight: 600;
+      padding: 0.25rem 0.75rem; border-radius: 100px;
+      margin-bottom: 1.5rem; letter-spacing: 0.06em; text-transform: uppercase;
     }
 
-    /* ── Waitlist Section ──────────────────────────────────────── */
-    .waitlist-section {
-      padding: 7rem 1.5rem;
-      text-align: center;
-      background: var(--sand);
-    }
-    .waitlist-section .section-title { margin: 0 auto 0.5rem; }
-    .waitlist-section p { font-size: 1rem; color: #6a6a80; max-width: 440px; margin: 0 auto 2.5rem; line-height: 1.7; font-weight: 300; }
-
-    .waitlist-form-lg {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      max-width: 420px;
-      margin: 0 auto;
-    }
-    .waitlist-form-lg input {
-      width: 100%;
-      padding: 1rem 1.5rem;
-      border-radius: 14px;
-      border: 1.5px solid rgba(107,143,113,0.3);
-      background: var(--white);
-      font-family: var(--font-body);
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .waitlist-form-lg input:focus { border-color: var(--sage); }
-    .waitlist-form-lg button {
-      width: 100%;
-      padding: 1rem;
-      border-radius: 14px;
-      border: none;
-      background: var(--ink);
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .waitlist-form-lg button:hover { background: var(--sage); transform: translateY(-2px); }
-    .waitlist-form-lg textarea {
-      width: 100%;
-      padding: 1rem 1.5rem;
-      border-radius: 14px;
-      border: 1.5px solid rgba(107,143,113,0.3);
-      background: var(--white);
-      font-family: var(--font-body);
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.2s;
-      resize: none;
-      line-height: 1.6;
-      color: var(--ink);
-    }
-    .waitlist-form-lg textarea:focus { border-color: var(--sage); }
-    .waitlist-form-lg textarea::placeholder { color: #aaa; }
-
-    .field-wrap {
-      width: 100%;
-      position: relative;
-    }
-    .field-label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--sage);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 0.4rem;
-      text-align: left;
-    }
-    .field-optional {
-      font-size: 0.7rem;
-      color: #aaa;
-      font-weight: 300;
-      text-transform: none;
-      letter-spacing: 0;
-      margin-left: 0.3rem;
-    }
-    .char-counter {
-      position: absolute;
-      bottom: 0.75rem;
-      right: 1rem;
-      font-size: 0.7rem;
-      color: #bbb;
-      pointer-events: none;
-      transition: color 0.2s;
-    }
-    .char-counter.warn { color: var(--amber); }
-
-    .success-msg {
-      display: none;
-      background: var(--mist);
-      color: var(--sage);
-      border-radius: 14px;
-      padding: 1rem 1.5rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      width: 100%;
-    }
-
-    /* ── Footer ────────────────────────────────────────────────── */
+    /* ── Footer ── */
     footer {
-      background: var(--ink);
-      color: rgba(255,255,255,0.45);
-      text-align: center;
-      padding: 2.5rem 1.5rem;
-      font-size: 0.8rem;
+      background: var(--ink); color: rgba(255,255,255,0.45);
+      text-align: center; padding: 2.5rem 1.5rem; font-size: 0.8rem;
     }
     footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: rgba(255,255,255,0.8); }
     footer strong { color: rgba(255,255,255,0.8); font-family: var(--font-head); }
 
-    /* ── Countdown animation for clock ────────────────────────── */
-    .clock-num { animation: tickPulse 1s ease-in-out infinite; }
-    @keyframes tickPulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.75; }
-    }
+    /* ── Scroll reveal ── */
+    .reveal { opacity:0; transform:translateY(32px); transition:opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+    .reveal-delay-1 { transition-delay:0.1s; }
+    .reveal-delay-2 { transition-delay:0.2s; }
+    .reveal-delay-3 { transition-delay:0.3s; }
 
-    /* ── Scroll-reveal ─────────────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: none; }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-
-    /* ── Responsive ────────────────────────────────────────────── */
-    @media (max-width: 600px) {
-      .waitlist-form { flex-direction: column; align-items: stretch; }
-      .waitlist-form input { min-width: unset; }
+    @media (max-width:600px) {
+      .hero-actions { flex-direction:column; align-items:center; }
+      .btn-google-play, .btn-secondary { width:100%; justify-content:center; max-width:320px; }
     }
   </style>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HT2W5W7Q0W"></script>
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HT2W5W7Q0W');
-</script>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">Cart<span>Nap</span> 🛒💤</a>
-  <a class="nav-cta" href="#notify">Get Early Access</a>
+  <a class="nav-logo" href="#">
+    <img src="img/logo.png" alt="CartNap logo" />
+    Cart<span>Nap</span>
+  </a>
+  <a class="btn-google-play-nav" href="https://play.google.com/store/apps/details?id=com.zipangulu.cartnap" target="_blank" rel="noopener">
+    <svg width="22" height="22" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0,0h40v40H0V0z"/><g><path d="M19.7,19.2L4.3,35.3c0,0,0,0,0,0c0.5,1.7,2.1,3,4,3c0.8,0,1.5-0.2,2.1-0.6l0,0l17.4-9.9L19.7,19.2z" fill="#EA4335"/><path d="M35.3,16.4L35.3,16.4l-7.5-4.3l-8.4,7.4l8.5,8.3l7.5-4.2c1.3-0.7,2.2-2.1,2.2-3.6C37.5,18.5,36.6,17.1,35.3,16.4z" fill="#FBBC04"/><path d="M4.3,4.7C4.2,5,4.2,5.4,4.2,5.8v28.5c0,0.4,0,0.7,0.1,1.1l16-15.7L4.3,4.7z" fill="#4285F4"/><path d="M19.8,20l8-7.9L10.5,2.3C9.9,1.9,9.1,1.7,8.3,1.7c-1.9,0-3.6,1.3-4,3c0,0,0,0,0,0L19.8,20z" fill="#34A853"/></g></svg> Get on Google Play
+  </a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <span class="hero-icon">🛒💤</span>
-  <div class="hero-badge">Coming Soon to Android</div>
+  <img class="hero-logo" src="img/logo.png" alt="CartNap" />
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Now in Beta · Android
+  </div>
   <h1>Stop buying now.<br><em>Sleep on it first.</em></h1>
   <p class="hero-sub">
-    CartNap intercepts your impulse buys and puts them into a mindful pause.
-    After your cooling-off period, decide with a clear head — buy or save.
+    Share any product link from Amazon, eBay, Zalando, Vinted, AliExpress, Shein  or your favorite shopping app.
+    CartNap puts it to sleep for 48 hours — then you decide with a clear head: buy with intention, or keep the money.
   </p>
-
+  <div class="hero-actions">
+    <a class="btn-google-play" href="https://play.google.com/store/apps/details?id=com.zipangulu.cartnap" target="_blank" rel="noopener">
+      <svg width="22" height="22" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0,0h40v40H0V0z"/><g><path d="M19.7,19.2L4.3,35.3c0,0,0,0,0,0c0.5,1.7,2.1,3,4,3c0.8,0,1.5-0.2,2.1-0.6l0,0l17.4-9.9L19.7,19.2z" fill="#EA4335"/><path d="M35.3,16.4L35.3,16.4l-7.5-4.3l-8.4,7.4l8.5,8.3l7.5-4.2c1.3-0.7,2.2-2.1,2.2-3.6C37.5,18.5,36.6,17.1,35.3,16.4z" fill="#FBBC04"/><path d="M4.3,4.7C4.2,5,4.2,5.4,4.2,5.8v28.5c0,0.4,0,0.7,0.1,1.1l16-15.7L4.3,4.7z" fill="#4285F4"/><path d="M19.8,20l8-7.9L10.5,2.3C9.9,1.9,9.1,1.7,8.3,1.7c-1.9,0-3.6,1.3-4,3c0,0,0,0,0,0L19.8,20z" fill="#34A853"/></g></svg>
+      <span class="btn-google-play-text">
+        <span class="btn-google-play-small">Get it on</span>
+        <span class="btn-google-play-big">Google Play</span>
+      </span>
+    </a>
+    <a class="btn-secondary" href="#how-it-works">See how it works ↓</a>
+  </div>
+  <p class="hero-note">Free to download · No account required · Android 8.0+</p>
   <div class="store-badges">
     <span>📲</span>
-    Android App &nbsp;·&nbsp; Coming to Google Play
+    Available now on Android
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="section">
+<section class="section" id="how-it-works">
   <div class="section-label reveal">How It Works</div>
   <h2 class="section-title reveal reveal-delay-1">Three steps to spend less, regret less.</h2>
-
   <div class="steps">
     <div class="step reveal">
       <div class="step-num">01</div>
       <span class="step-icon">📤</span>
       <h3>Share a product link</h3>
-      <p>Found something tempting on Amazon, eBay, Vinted, AliExpress or your favorite shopping app? Tap the Share button and choose CartNap — just like that.</p>
+      <p>Found something tempting on Amazon, eBay, Zalando, Vinted, AliExpress, ASOS, Shein and more? Tap the Share button and choose CartNap. The product name, price and image are extracted automatically.</p>
     </div>
     <div class="step reveal reveal-delay-1">
       <div class="step-num">02</div>
       <span class="step-icon">😴</span>
       <h3>Let it nap for 48h</h3>
-      <p>CartNap saves the item and starts a reflection timer. The product is "frozen" — you can't impulse-click Buy.</p>
+      <p>CartNap saves the item and starts a reflection timer. The product goes to sleep — a countdown begins and you can't impulse-click Buy.</p>
     </div>
     <div class="step reveal reveal-delay-2">
       <div class="step-num">03</div>
       <span class="step-icon">🧘</span>
       <h3>Decide with clarity</h3>
-      <p>When the nap ends, you get a calm notification. Buy it if you still want it — or discard it and save the money.</p>
+      <p>When it wakes up, you decide: buy it if you still want it — or discard it and save the money. Your wallet keeps score.</p>
     </div>
   </div>
 </section>
 
-<!-- TIMER MOCKUP -->
-<section class="timer-section">
-  <div class="timer-inner">
-    <div class="timer-visual reveal">
-      <div class="timer-chip">⏳ Napping...</div>
-      <div class="timer-product">
-        <div class="timer-product-img">👟</div>
-        <div class="timer-product-info">
-          <div class="timer-product-name">Nike Air Max 270 – White</div>
-          <div class="timer-product-price">€ 149.99</div>
+<!-- SCREENSHOT SHOWCASE -->
+<section class="screenshots-section">
+  <div class="screenshots-inner">
+    <div class="section-label reveal">App Screenshots</div>
+    <h2 class="section-title reveal reveal-delay-1">A calm, focused experience.<br><em>No dark patterns. Ever.</em></h2>
+    <div class="carousel-wrap">
+      <div class="carousel-phone reveal">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img id="carousel-img" src="" alt="App screenshot" />
+          </div>
         </div>
       </div>
-      <div class="timer-clock">
-        <div class="clock-unit">
-          <span class="clock-num" id="clock-h">41</span>
-          <span class="clock-label">hours</span>
-        </div>
-        <div class="clock-sep">:</div>
-        <div class="clock-unit">
-          <span class="clock-num" id="clock-m">23</span>
-          <span class="clock-label">min</span>
-        </div>
-        <div class="clock-sep">:</div>
-        <div class="clock-unit">
-          <span class="clock-num" id="clock-s">07</span>
-          <span class="clock-label">sec</span>
-        </div>
-      </div>
-      <div class="timer-actions">
-        <button class="btn-buy" disabled>🛍 Buy (not yet!)</button>
-        <button class="btn-save" onclick="showSaved(this)">💚 Save Money</button>
-      </div>
-    </div>
-
-    <div class="timer-text">
-      <div class="section-label reveal">The Nap Timer</div>
-      <h2 class="section-title reveal reveal-delay-1">Your cart takes a<br><em>mindful pause.</em></h2>
-      <p class="reveal reveal-delay-2">The default 48-hour cooldown creates the perfect psychological distance from the moment of impulse. Studies show that delayed purchases reduce impulse spending by up to 70%.</p>
-      <p class="reveal reveal-delay-3" style="margin-top:1rem;">After the nap ends, you decide — and every discarded item is added to your personal <strong>Savings Jar</strong>. 🫙</p>
+      <div class="carousel-tabs reveal reveal-delay-1" id="carousel-tabs"></div>
     </div>
   </div>
 </section>
@@ -714,37 +475,36 @@
   <div class="features-inner">
     <div class="section-label">Features</div>
     <h2 class="section-title">Everything you need<br>to shop mindfully.</h2>
-
     <div class="features-grid">
       <div class="feature-card reveal">
         <span class="feature-icon">🔗</span>
-        <h4>Auto-Link Capture</h4>
-        <p>Share any product URL from any browser or shopping app. CartNap scrapes the title, image and price automatically.</p>
+        <h4>Smart Link Detection</h4>
+        <p>Share a link from Amazon, eBay, Zalando, Vinted, AliExpress, ASOS, Shein and many more. CartNap automatically extracts the product name, price and image.</p>
       </div>
       <div class="feature-card reveal reveal-delay-1">
         <span class="feature-icon">⏱️</span>
-        <h4>Customizable Timer</h4>
-        <p>Default 48h but you set the rules. 24h for clothing, 7 days for big purchases — your pace, your rules.</p>
+        <h4>Customizable Nap Timer</h4>
+        <p>Default 48h but you set the rules. 24h for clothing, 7 days for big purchases — your pace, your habits.</p>
       </div>
       <div class="feature-card reveal reveal-delay-2">
-        <span class="feature-icon">🫙</span>
-        <h4>Savings Jar</h4>
-        <p>Every item you discard becomes a tracked saving. Watch your Savings Jar fill up — it's deeply satisfying.</p>
+        <span class="feature-icon">🔒</span>
+        <h4>Deep Sleep Mode</h4>
+        <p>For serious impulse buyers. Hides the buy button entirely until the timer expires. No shortcuts, no cheating.</p>
       </div>
       <div class="feature-card reveal">
-        <span class="feature-icon">🔔</span>
-        <h4>Mindful Notifications</h4>
-        <p>Gentle nudges when your nap timer ends. No manipulative urgency — just a calm "ready to decide?"</p>
+        <span class="feature-icon">🫙</span>
+        <h4>Savings Tracker</h4>
+        <p>Every time you decide not to buy, CartNap tracks how much you saved. Get a weekly report every Monday and watch your savings grow.</p>
       </div>
       <div class="feature-card reveal reveal-delay-1">
         <span class="feature-icon">📊</span>
-        <h4>Spending Insights</h4>
-        <p>See how much you've considered spending vs how much you've actually saved. The chart tells a great story.</p>
+        <h4>Statistics &amp; Insights</h4>
+        <p>Visualize your rethinking rate, top stores, total savings and personal progress over time.</p>
       </div>
       <div class="feature-card reveal reveal-delay-2">
-        <span class="feature-icon">☁️</span>
-        <h4>Cloud Sync</h4>
-        <p>Your napping products sync securely across devices. Start on your phone, decide on your tablet.</p>
+        <span class="feature-icon">📴</span>
+        <h4>Works Offline</h4>
+        <p>All your data is stored locally on your device. No account required to get started — just install and go.</p>
       </div>
     </div>
   </div>
@@ -762,127 +522,117 @@
       <div class="stat-label">default nap time — proven sweet spot for reflection</div>
     </div>
     <div class="reveal reveal-delay-2">
-      <div class="stat-value">€0</div>
-      <div class="stat-label">cost to get started — free tier available for all</div>
+      <div class="stat-value">Free</div>
+      <div class="stat-label">to download and use — no credit card, no account required</div>
     </div>
   </div>
 </div>
 
-<!-- WAITLIST -->
-<section class="waitlist-section" id="notify">
-  <div class="section-label reveal">Early Access</div>
-  <h2 class="section-title reveal reveal-delay-1">Be first to nap smarter.</h2>
-  <p class="reveal reveal-delay-2">Join the waitlist and get notified the moment CartNap lands on Google Play.<br>Free to join. No spam.</p>
-
-  <div class="waitlist-form-lg reveal reveal-delay-3">
-
-    <div class="field-wrap">
-      <label class="field-label" for="main-name">Name <span class="field-optional">— optional</span></label>
-      <input type="text" id="main-name" placeholder="How should we call you?" autocomplete="given-name" maxlength="80" />
-    </div>
-
-    <div class="field-wrap">
-      <label class="field-label" for="main-email">Email <span class="field-optional">— required</span></label>
-      <input type="email" id="main-email" placeholder="your@email.com" autocomplete="email" />
-    </div>
-
-    <div class="field-wrap">
-      <label class="field-label" for="main-message">Message <span class="field-optional">— optional, max 200 chars</span></label>
-      <textarea id="main-message" rows="3" maxlength="200"
-        placeholder="Anything you'd like to tell us? A feature wish, a thought…"
-        oninput="updateCounter(this)"></textarea>
-      <span class="char-counter" id="char-counter">0 / 200</span>
-    </div>
-
-    <button onclick="mainSubmit()">Join the Waitlist 🛒💤</button>
-
-    <div class="success-msg" id="success-msg">
-      🎉 You're on the list! We'll email you when CartNap launches.
-    </div>
-  </div>
+<!-- DOWNLOAD CTA -->
+<section class="download-section" id="download">
+  <div class="beta-pill">🧪 Open Beta</div>
+  <h2 class="section-title reveal reveal-delay-1">Ready to nap smarter?</h2>
+  <p class="reveal reveal-delay-2">CartNap is free and available now on Google Play. No account required to get started — install, share a product link and let it nap. Your feedback helps shape the next version. 💚</p>
+  <a class="btn-google-play reveal reveal-delay-3" href="https://play.google.com/store/apps/details?id=com.zipangulu.cartnap" target="_blank" rel="noopener"
+     style="display:inline-flex; margin: 0 auto;">
+    <svg width="22" height="22" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0,0h40v40H0V0z"/><g><path d="M19.7,19.2L4.3,35.3c0,0,0,0,0,0c0.5,1.7,2.1,3,4,3c0.8,0,1.5-0.2,2.1-0.6l0,0l17.4-9.9L19.7,19.2z" fill="#EA4335"/><path d="M35.3,16.4L35.3,16.4l-7.5-4.3l-8.4,7.4l8.5,8.3l7.5-4.2c1.3-0.7,2.2-2.1,2.2-3.6C37.5,18.5,36.6,17.1,35.3,16.4z" fill="#FBBC04"/><path d="M4.3,4.7C4.2,5,4.2,5.4,4.2,5.8v28.5c0,0.4,0,0.7,0.1,1.1l16-15.7L4.3,4.7z" fill="#4285F4"/><path d="M19.8,20l8-7.9L10.5,2.3C9.9,1.9,9.1,1.7,8.3,1.7c-1.9,0-3.6,1.3-4,3c0,0,0,0,0,0L19.8,20z" fill="#34A853"/></g></svg>
+    <span class="btn-google-play-text">
+      <span class="btn-google-play-small">Get it on</span>
+      <span class="btn-google-play-big">Google Play</span>
+    </span>
+  </a>
+  <p style="margin-top:1.25rem; font-size:0.8rem; color:#9090a8;">
+    Android only · Beta version · Your feedback helps us improve 💚
+  </p>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <p><strong>CartNap</strong> — Let your cart sleep on it.</p>
   <p style="margin-top:0.5rem;">
-    Made with 💚 for mindful spenders &nbsp;·&nbsp;
-    <!--<a href="/cdn-cgi/l/email-protection#a5cdc0c9c9cae5c6c4d7d1cbc4d58bc4d5d5"><span class="__cf_email__" data-cfemail="caa2afa6a6a58aa9abb8bea4abbae4abbaba">[email&#160;protected]</span></a>-->
+    Made with 💚 for mindful spenders
   </p>
-  <p style="margin-top:1rem;">© 2025 CartNap. All rights reserved.</p>
+  <p style="margin-top:1rem;">
+    © 2026 CartNap &nbsp;·&nbsp;
+    <a href="mailto:support@cartnap.app">Support</a> &nbsp;·&nbsp;
+    <a href="https://cartnap.com/privacy">Privacy Policy</a>
+  </p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  /* ── Live countdown ───────────────────────────────────────── */
-  let secs = 41 * 3600 + 23 * 60 + 7;
-  function updateClock() {
-    const h = Math.floor(secs / 3600);
-    const m = Math.floor((secs % 3600) / 60);
-    const s = secs % 60;
-    document.getElementById('clock-h').textContent = String(h).padStart(2, '0');
-    document.getElementById('clock-m').textContent = String(m).padStart(2, '0');
-    document.getElementById('clock-s').textContent = String(s).padStart(2, '0');
-    if (secs > 0) secs--;
-  }
-  updateClock();
-  setInterval(updateClock, 1000);
+<script>
+  /* ── Carosello screenshot ── */
+  const slides = [
+      { 
+        src: "img/home.png", 
+        label: "🏠 Home", 
+        desc: "Your napping products at a glance, with live countdown timers and total savings summary." 
+      },
+      {
+        src: "img/statistics.png",
+        label: "📊 Statistics",
+        desc: "Track your total savings, avoided items, rethinking rate and full resilience history."
+      },
+      {
+        src: "img/new_product.png",
+        label: "➕ Add Product",
+        desc: "Paste a URL for auto-fill, set your nap duration, add notes — then put it to sleep in seconds."
+      },
+      {
+        src: "img/profile.png",
+        label: "👤 Profile",
+        desc: "Customize nap duration, wake-up alerts, weekly reports, appearance and currency."
+      }
+    ];
 
-  /* ── Scroll reveal ────────────────────────────────────────── */
+  const AUTO_DURATION = 4000;
+  let current = 0;
+  let autoTimer = null;
+  const img    = document.getElementById('carousel-img');
+  const tabsEl = document.getElementById('carousel-tabs');
+
+  slides.forEach((s, i) => {
+    const tab = document.createElement('div');
+    tab.className = 'c-tab' + (i === 0 ? ' active' : '');
+    tab.innerHTML =
+      '<div class="c-tab-label">' + s.label + '</div>' +
+      '<div class="c-tab-desc">'  + s.desc  + '</div>' +
+      '<div class="c-tab-progress"><div class="c-tab-bar" id="bar-' + i + '"></div></div>';
+    tab.addEventListener('click', () => { goTo(i); restartAuto(); });
+    tabsEl.appendChild(tab);
+  });
+
+  function goTo(idx) {
+    document.querySelectorAll('.c-tab').forEach((t, i) => {
+      t.classList.toggle('active', i === idx);
+      const bar = document.getElementById('bar-' + i);
+      if (bar) { bar.style.transition = 'none'; bar.style.width = '0%'; }
+    });
+    img.classList.add('hidden');
+    setTimeout(() => { img.src = slides[idx].src; img.classList.remove('hidden'); }, 200);
+    current = idx;
+    setTimeout(() => {
+      const bar = document.getElementById('bar-' + idx);
+      if (bar) { bar.style.transition = 'width ' + AUTO_DURATION + 'ms linear'; bar.style.width = '100%'; }
+    }, 50);
+  }
+
+  function restartAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => { goTo((current + 1) % slides.length); }, AUTO_DURATION);
+  }
+
+  img.src = slides[0].src;
+  setTimeout(() => {
+    const bar = document.getElementById('bar-0');
+    if (bar) { bar.style.transition = 'width ' + AUTO_DURATION + 'ms linear'; bar.style.width = '100%'; }
+  }, 100);
+  restartAuto();
+
+  /* ── Scroll reveal ── */
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  /* ── Form handlers ────────────────────────────────────────── */
-  function mainSubmit() {
-    const emailInput = document.getElementById('main-email');
-    if (!emailInput.value || !emailInput.value.includes('@')) {
-      emailInput.focus();
-      emailInput.style.borderColor = '#e07070';
-      return;
-    }
-    emailInput.style.borderColor = '';
-
-    const name    = (document.getElementById('main-name').value    || '').trim();
-    const email   = emailInput.value.trim();
-    const message = (document.getElementById('main-message').value || '').trim();
-
-    saveEmail(email, name, message);
-
-    // Nasconde tutti i campi e mostra il messaggio di conferma
-    document.querySelectorAll('.waitlist-form-lg .field-wrap').forEach(el => el.style.display = 'none');
-    document.querySelector('.waitlist-form-lg button').style.display = 'none';
-    document.getElementById('success-msg').style.display = 'block';
-  }
-
-  async function saveEmail(email, name = '', message = '') {
-    try {
-      const payload = { email };
-      if (name)    payload.name    = name;
-      if (message) payload.message = message;
-
-      const response = await fetch('https://formspree.io/f/xreaknao', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if (!response.ok) throw new Error('Submission failed');
-    } catch (err) {
-      console.error('Formspree error:', err);
-    }
-  }
-
-  function updateCounter(el) {
-    const counter = document.getElementById('char-counter');
-    const len = el.value.length;
-    counter.textContent = len + ' / 200';
-    counter.classList.toggle('warn', len > 160);
-  }
-
-  function showSaved(btn) {
-    btn.textContent = '✅ Saved €149.99!';
-    btn.style.background = '#2e7d4f';
-  }
 </script>
 </body>
 </html>
