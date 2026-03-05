@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="img/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
       --ink:       #1a1a2e;
@@ -16,7 +16,6 @@
       --sage-lt:   #a8c5ad;
       --sand:      #f2ede4;
       --mist:      #dce8df;
-      --amber:     #d4956a;
       --white:     #fdfcf8;
       --purple:    #7c6fe0;
       --purple-lt: #ede9fb;
@@ -62,7 +61,7 @@
       background: var(--ink); color: #fff;
       padding: 9px 18px; border-radius: 50px;
       font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
-      text-decoration: none; border: none; cursor: pointer;
+      text-decoration: none;
       transition: background 0.2s, transform 0.15s;
     }
     .btn-google-play-nav svg { width: 18px; height: 18px; }
@@ -71,54 +70,76 @@
     /* ── Hero ── */
     .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 9rem 1.5rem 5rem;
+      display: flex; align-items: center;
+      padding: 7rem 2rem 4rem;
       position: relative; overflow: hidden;
     }
+    /* blob sfondo */
     .hero::before, .hero::after {
       content: ''; position: absolute; border-radius: 50%;
-      filter: blur(80px); opacity: 0.35;
-      animation: floatBlob 8s ease-in-out infinite alternate;
+      filter: blur(90px); opacity: 0.3; pointer-events: none;
+      animation: floatBlob 9s ease-in-out infinite alternate;
     }
     .hero::before {
-      width: 600px; height: 500px;
+      width: 520px; height: 520px;
       background: radial-gradient(circle, var(--mist), transparent);
-      top: -100px; left: -150px;
+      top: -80px; left: -120px;
     }
     .hero::after {
-      width: 500px; height: 400px;
+      width: 420px; height: 420px;
       background: radial-gradient(circle, #ede9fb, transparent);
-      bottom: 0; right: -100px; animation-delay: -4s;
+      bottom: -60px; right: -80px; animation-delay: -4s;
     }
     @keyframes floatBlob {
       from { transform: translate(0,0) scale(1); }
-      to   { transform: translate(30px,20px) scale(1.05); }
+      to   { transform: translate(25px,18px) scale(1.06); }
     }
-    .hero-logo {
-      width: 120px; height: 120px;
-      border-radius: 28px;
-      margin-bottom: 1.75rem;
+
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 4rem;
+      align-items: center;
       position: relative; z-index: 1;
-      animation: sway 3s ease-in-out infinite;
-      box-shadow: 0 12px 40px rgba(124,111,224,0.3);
     }
-    @keyframes sway {
-      0%,100% { transform: rotate(-3deg); }
-      50%      { transform: rotate(3deg); }
+
+    /* Colonna sinistra — testo */
+    .hero-content { display: flex; flex-direction: column; align-items: flex-start; }
+
+    .hero-app-name {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.5s ease both;
     }
+    .hero-app-name img {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(124,111,224,0.25);
+    }
+    .hero-app-name-text {
+      font-family: var(--font-head);
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--ink); line-height: 1;
+    }
+    .hero-app-name-text span { color: var(--sage); }
+    .hero-app-name-sub {
+      font-size: 0.75rem; color: #9090a8;
+      font-weight: 400; margin-top: 0.2rem;
+      letter-spacing: 0.04em;
+    }
+
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.4rem;
       background: var(--purple-lt); color: var(--purple);
-      font-size: 0.8rem; font-weight: 600;
+      font-size: 0.75rem; font-weight: 600;
       letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 0.35rem 1rem; border-radius: 100px;
-      margin-bottom: 1.5rem; position: relative; z-index: 1;
-      animation: fadeUp 0.6s ease both;
+      padding: 0.3rem 0.9rem; border-radius: 100px;
+      margin-bottom: 1.25rem;
+      animation: fadeUp 0.6s 0.05s ease both;
     }
     .badge-dot {
-      width: 7px; height: 7px; border-radius: 50%;
+      width: 6px; height: 6px; border-radius: 50%;
       background: var(--purple);
       animation: pulse 1.5s ease-in-out infinite;
     }
@@ -126,76 +147,105 @@
       0%,100% { opacity:1; transform:scale(1); }
       50%      { opacity:0.5; transform:scale(1.4); }
     }
+
     h1 {
       font-family: var(--font-head);
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
       line-height: 1.1; color: var(--ink);
-      max-width: 820px; position: relative; z-index: 1;
+      margin-bottom: 1.25rem;
       animation: fadeUp 0.7s 0.1s ease both;
     }
-    h1 em { font-style: italic; color: var(--sage); white-space: nowrap; }
+    h1 em { font-style: italic; color: var(--sage); }
+
     .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      color: #5a5a6e; max-width: 560px;
-      line-height: 1.7; margin-top: 1.5rem; font-weight: 300;
-      position: relative; z-index: 1;
+      font-size: 1.05rem;
+      color: #5a5a6e;
+      line-height: 1.75; font-weight: 300;
+      max-width: 480px;
+      margin-bottom: 2rem;
       animation: fadeUp 0.7s 0.2s ease both;
     }
+
     @keyframes fadeUp {
-      from { opacity:0; transform:translateY(24px); }
+      from { opacity:0; transform:translateY(20px); }
       to   { opacity:1; transform:translateY(0); }
     }
+
     .hero-actions {
-      display: flex; gap: 1rem; flex-wrap: wrap;
-      justify-content: center; margin-top: 2.5rem;
-      position: relative; z-index: 1;
+      display: flex; gap: 0.9rem; flex-wrap: wrap;
+      align-items: center;
       animation: fadeUp 0.7s 0.3s ease both;
     }
-    /* Badge Google Play — stile uguale all'altro sito */
+
+    /* Badge Google Play */
     .btn-google-play {
       display: inline-flex; align-items: center; gap: 12px;
-      padding: 14px 28px;
+      padding: 13px 24px;
       background: white; color: #111;
-      border-radius: 16px;
-      text-decoration: none;
-      font-family: var(--font-body);
-      font-weight: 700; font-size: 1rem;
+      border-radius: 16px; text-decoration: none;
+      font-family: var(--font-body); font-weight: 700; font-size: 1rem;
       border: 1.5px solid rgba(26,26,46,0.1);
       box-shadow: 0 4px 20px rgba(26,26,46,0.1);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .btn-google-play:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(26,26,46,0.15);
+      box-shadow: 0 10px 36px rgba(26,26,46,0.15);
     }
     .btn-google-play svg { width: 24px; height: 24px; flex-shrink: 0; }
-    .btn-google-play-text { text-align: left; line-height: 1.2; }
-    .btn-google-play-small { font-size: 0.65rem; font-weight: 400; opacity: 0.6; display: block; text-transform: uppercase; letter-spacing: 0.08em; }
+    .btn-google-play-text { text-align: left; line-height: 1.25; }
+    .btn-google-play-small { font-size: 0.62rem; font-weight: 400; opacity: 0.55; display: block; text-transform: uppercase; letter-spacing: 0.08em; }
     .btn-google-play-big { font-size: 1rem; font-weight: 700; display: block; }
+
     .btn-secondary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
       background: transparent; color: var(--ink);
-      padding: 14px 28px; border-radius: 16px;
-      font-family: var(--font-body); font-size: 1rem; font-weight: 500;
-      text-decoration: none; border: 1.5px solid rgba(26,26,46,0.2); cursor: pointer;
+      padding: 13px 22px; border-radius: 16px;
+      font-family: var(--font-body); font-size: 0.95rem; font-weight: 500;
+      text-decoration: none; border: 1.5px solid rgba(26,26,46,0.18);
       transition: border-color 0.2s, background 0.2s, transform 0.15s;
     }
     .btn-secondary:hover { border-color:var(--sage); background:var(--mist); transform:translateY(-1px); }
+
     .hero-note {
-      margin-top: 1rem; font-size: 0.8rem; color: #9090a8;
-      position: relative; z-index: 1;
+      margin-top: 1rem; font-size: 0.78rem; color: #a0a0b8;
       animation: fadeUp 0.7s 0.4s ease both;
     }
-    .store-badges {
-      margin-top: 1rem;
-      display: flex; align-items: center; gap: 1rem;
-      opacity: 0.45; filter: grayscale(1);
-      position: relative; z-index: 1;
-      animation: fadeUp 0.7s 0.5s ease both;
-      font-size: 0.75rem; color: #888;
-      font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
+
+    /* Colonna destra — telefono */
+    .hero-phone {
+      display: flex; justify-content: center; align-items: center;
+      animation: fadeUp 0.9s 0.2s ease both;
     }
-    .store-badges span { font-size: 1.5rem; }
+    .hero-phone-frame {
+      width: 260px;
+      background: #1a1a2e;
+      border-radius: 42px; padding: 12px;
+      box-shadow:
+        0 0 0 1px rgba(124,111,224,0.2),
+        0 40px 100px rgba(26,26,46,0.25),
+        0 0 60px rgba(124,111,224,0.1);
+      animation: phoneFloat 6s ease-in-out infinite;
+      position: relative;
+    }
+    .hero-phone-notch {
+      width: 72px; height: 18px;
+      background: #1a1a2e;
+      border-radius: 0 0 12px 12px;
+      position: absolute; top: 12px;
+      left: 50%; transform: translateX(-50%); z-index: 2;
+    }
+    .hero-phone-screen {
+      border-radius: 32px; overflow: hidden;
+      aspect-ratio: 9/19.5;
+    }
+    .hero-phone-screen img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    @keyframes phoneFloat {
+      0%,100% { transform: translateY(0) rotate(1deg); }
+      50%      { transform: translateY(-14px) rotate(-0.5deg); }
+    }
 
     /* ── How it works ── */
     .section { padding: 6rem 1.5rem; max-width: 1100px; margin: 0 auto; }
@@ -377,9 +427,22 @@
     .reveal-delay-2 { transition-delay:0.2s; }
     .reveal-delay-3 { transition-delay:0.3s; }
 
-    @media (max-width:600px) {
-      .hero-actions { flex-direction:column; align-items:center; }
-      .btn-google-play, .btn-secondary { width:100%; justify-content:center; max-width:320px; }
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .hero { padding: 7rem 1.5rem 3rem; }
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem; text-align: center;
+      }
+      .hero-content { align-items: center; }
+      .hero-sub { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .hero-phone { order: -1; }
+      .hero-phone-frame { width: 220px; }
+    }
+    @media (max-width: 600px) {
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn-google-play, .btn-secondary { width: 100%; justify-content: center; max-width: 300px; }
     }
   </style>
 </head>
@@ -392,36 +455,62 @@
     Cart<span>Nap</span>
   </a>
   <a class="btn-google-play-nav" href="https://play.google.com/store/apps/details?id=com.zipangulu.cartnap" target="_blank" rel="noopener">
-    <svg width="22" height="22" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0,0h40v40H0V0z"/><g><path d="M19.7,19.2L4.3,35.3c0,0,0,0,0,0c0.5,1.7,2.1,3,4,3c0.8,0,1.5-0.2,2.1-0.6l0,0l17.4-9.9L19.7,19.2z" fill="#EA4335"/><path d="M35.3,16.4L35.3,16.4l-7.5-4.3l-8.4,7.4l8.5,8.3l7.5-4.2c1.3-0.7,2.2-2.1,2.2-3.6C37.5,18.5,36.6,17.1,35.3,16.4z" fill="#FBBC04"/><path d="M4.3,4.7C4.2,5,4.2,5.4,4.2,5.8v28.5c0,0.4,0,0.7,0.1,1.1l16-15.7L4.3,4.7z" fill="#4285F4"/><path d="M19.8,20l8-7.9L10.5,2.3C9.9,1.9,9.1,1.7,8.3,1.7c-1.9,0-3.6,1.3-4,3c0,0,0,0,0,0L19.8,20z" fill="#34A853"/></g></svg> Get on Google Play
+    <svg width="22" height="22" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0,0h40v40H0V0z"/><g><path d="M19.7,19.2L4.3,35.3c0.5,1.7,2.1,3,4,3c0.8,0,1.5-0.2,2.1-0.6l17.4-9.9L19.7,19.2z" fill="#EA4335"/><path d="M35.3,16.4l-7.5-4.3l-8.4,7.4l8.5,8.3l7.5-4.2c1.3-0.7,2.2-2.1,2.2-3.6C37.5,18.5,36.6,17.1,35.3,16.4z" fill="#FBBC04"/><path d="M4.3,4.7C4.2,5,4.2,5.4,4.2,5.8v28.5c0,0.4,0,0.7,0.1,1.1l16-15.7L4.3,4.7z" fill="#4285F4"/><path d="M19.8,20l8-7.9L10.5,2.3C9.9,1.9,9.1,1.7,8.3,1.7c-1.9,0-3.6,1.3-4,3L19.8,20z" fill="#34A853"/></g></svg> Get on Google Play
   </a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <img class="hero-logo" src="img/logo.png" alt="CartNap" />
-  <div class="hero-badge">
-    <span class="badge-dot"></span>
-    Now in Beta · Android
-  </div>
-  <h1>Stop buying now.<br><em>Sleep on it first.</em></h1>
-  <p class="hero-sub">
-    Share any product link from Amazon, eBay, Zalando, Vinted, AliExpress, Shein  or your favorite shopping app.
-    CartNap puts it to sleep for 48 hours — then you decide with a clear head: buy with intention, or keep the money.
-  </p>
-  <div class="hero-actions">
-    <a class="btn-google-play" href="https://play.google.com/store/apps/details?id=com.zipangulu.cartnap" target="_blank" rel="noopener">
-      <svg width="22" height="22" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0,0h40v40H0V0z"/><g><path d="M19.7,19.2L4.3,35.3c0,0,0,0,0,0c0.5,1.7,2.1,3,4,3c0.8,0,1.5-0.2,2.1-0.6l0,0l17.4-9.9L19.7,19.2z" fill="#EA4335"/><path d="M35.3,16.4L35.3,16.4l-7.5-4.3l-8.4,7.4l8.5,8.3l7.5-4.2c1.3-0.7,2.2-2.1,2.2-3.6C37.5,18.5,36.6,17.1,35.3,16.4z" fill="#FBBC04"/><path d="M4.3,4.7C4.2,5,4.2,5.4,4.2,5.8v28.5c0,0.4,0,0.7,0.1,1.1l16-15.7L4.3,4.7z" fill="#4285F4"/><path d="M19.8,20l8-7.9L10.5,2.3C9.9,1.9,9.1,1.7,8.3,1.7c-1.9,0-3.6,1.3-4,3c0,0,0,0,0,0L19.8,20z" fill="#34A853"/></g></svg>
-      <span class="btn-google-play-text">
-        <span class="btn-google-play-small">Get it on</span>
-        <span class="btn-google-play-big">Google Play</span>
-      </span>
-    </a>
-    <a class="btn-secondary" href="#how-it-works">See how it works ↓</a>
-  </div>
-  <p class="hero-note">Free to download · No account required · Android 8.0+</p>
-  <div class="store-badges">
-    <span>📲</span>
-    Available now on Android
+  <div class="hero-inner">
+
+    <!-- Colonna sinistra: testo -->
+    <div class="hero-content">
+
+      <!-- Logo + nome app -->
+      <div class="hero-app-name">
+        <img src="img/logo.png" alt="CartNap" />
+        <div>
+          <div class="hero-app-name-text">Cart<span>Nap</span></div>
+          <div class="hero-app-name-sub">Mindful Shopping · Free on Android</div>
+        </div>
+      </div>
+
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Now in Beta
+      </div>
+
+      <h1>Stop buying now.<br><em>Sleep on it first.</em></h1>
+
+      <p class="hero-sub">
+        Share any product link from Amazon, eBay, Zalando, Vinted, AliExpress, ASOS, Shein and more.
+        CartNap puts it to sleep for 48 hours — then you decide with a clear head: buy with intention, or keep the money.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn-google-play" href="https://play.google.com/store/apps/details?id=com.zipangulu.cartnap" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0,0h40v40H0V0z"/><g><path d="M19.7,19.2L4.3,35.3c0.5,1.7,2.1,3,4,3c0.8,0,1.5-0.2,2.1-0.6l17.4-9.9L19.7,19.2z" fill="#EA4335"/><path d="M35.3,16.4l-7.5-4.3l-8.4,7.4l8.5,8.3l7.5-4.2c1.3-0.7,2.2-2.1,2.2-3.6C37.5,18.5,36.6,17.1,35.3,16.4z" fill="#FBBC04"/><path d="M4.3,4.7C4.2,5,4.2,5.4,4.2,5.8v28.5c0,0.4,0,0.7,0.1,1.1l16-15.7L4.3,4.7z" fill="#4285F4"/><path d="M19.8,20l8-7.9L10.5,2.3C9.9,1.9,9.1,1.7,8.3,1.7c-1.9,0-3.6,1.3-4,3L19.8,20z" fill="#34A853"/></g></svg>
+          <span class="btn-google-play-text">
+            <span class="btn-google-play-small">Get it on</span>
+            <span class="btn-google-play-big">Google Play</span>
+          </span>
+        </a>
+        <a class="btn-secondary" href="#how-it-works">See how it works ↓</a>
+      </div>
+
+      <p class="hero-note">Free to download · No account required · Android 8.0+</p>
+    </div>
+
+    <!-- Colonna destra: mockup telefono -->
+    <div class="hero-phone">
+      <div class="hero-phone-frame">
+        <div class="hero-phone-notch"></div>
+        <div class="hero-phone-screen">
+          <img src="img/home.png" alt="CartNap home screen" />
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -532,10 +621,9 @@
 <section class="download-section" id="download">
   <div class="beta-pill">🧪 Open Beta</div>
   <h2 class="section-title reveal reveal-delay-1">Ready to nap smarter?</h2>
-  <p class="reveal reveal-delay-2">CartNap is free and available now on Google Play. No account required to get started — install, share a product link and let it nap. Your feedback helps shape the next version. 💚</p>
-  <a class="btn-google-play reveal reveal-delay-3" href="https://play.google.com/store/apps/details?id=com.zipangulu.cartnap" target="_blank" rel="noopener"
-     style="display:inline-flex; margin: 0 auto;">
-    <svg width="22" height="22" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0,0h40v40H0V0z"/><g><path d="M19.7,19.2L4.3,35.3c0,0,0,0,0,0c0.5,1.7,2.1,3,4,3c0.8,0,1.5-0.2,2.1-0.6l0,0l17.4-9.9L19.7,19.2z" fill="#EA4335"/><path d="M35.3,16.4L35.3,16.4l-7.5-4.3l-8.4,7.4l8.5,8.3l7.5-4.2c1.3-0.7,2.2-2.1,2.2-3.6C37.5,18.5,36.6,17.1,35.3,16.4z" fill="#FBBC04"/><path d="M4.3,4.7C4.2,5,4.2,5.4,4.2,5.8v28.5c0,0.4,0,0.7,0.1,1.1l16-15.7L4.3,4.7z" fill="#4285F4"/><path d="M19.8,20l8-7.9L10.5,2.3C9.9,1.9,9.1,1.7,8.3,1.7c-1.9,0-3.6,1.3-4,3c0,0,0,0,0,0L19.8,20z" fill="#34A853"/></g></svg>
+  <p class="reveal reveal-delay-2">CartNap is free and available now on Google Play. No account required — install, share a product link and let it nap. Your feedback helps shape the next version. 💚</p>
+  <a class="btn-google-play reveal reveal-delay-3" href="https://play.google.com/store/apps/details?id=com.zipangulu.cartnap" target="_blank" rel="noopener" style="margin: 0 auto;">
+    <svg width="22" height="22" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0,0h40v40H0V0z"/><g><path d="M19.7,19.2L4.3,35.3c0.5,1.7,2.1,3,4,3c0.8,0,1.5-0.2,2.1-0.6l17.4-9.9L19.7,19.2z" fill="#EA4335"/><path d="M35.3,16.4l-7.5-4.3l-8.4,7.4l8.5,8.3l7.5-4.2c1.3-0.7,2.2-2.1,2.2-3.6C37.5,18.5,36.6,17.1,35.3,16.4z" fill="#FBBC04"/><path d="M4.3,4.7C4.2,5,4.2,5.4,4.2,5.8v28.5c0,0.4,0,0.7,0.1,1.1l16-15.7L4.3,4.7z" fill="#4285F4"/><path d="M19.8,20l8-7.9L10.5,2.3C9.9,1.9,9.1,1.7,8.3,1.7c-1.9,0-3.6,1.3-4,3L19.8,20z" fill="#34A853"/></g></svg>
     <span class="btn-google-play-text">
       <span class="btn-google-play-small">Get it on</span>
       <span class="btn-google-play-big">Google Play</span>
@@ -550,7 +638,8 @@
 <footer>
   <p><strong>CartNap</strong> — Let your cart sleep on it.</p>
   <p style="margin-top:0.5rem;">
-    Made with 💚 for mindful spenders
+    Made with 💚 for mindful spenders &nbsp;·&nbsp;
+    <a href="mailto:hello@cartnap.app">hello@cartnap.app</a>
   </p>
   <p style="margin-top:1rem;">
     © 2026 CartNap &nbsp;·&nbsp;
@@ -562,27 +651,11 @@
 <script>
   /* ── Carosello screenshot ── */
   const slides = [
-      { 
-        src: "img/home.png", 
-        label: "🏠 Home", 
-        desc: "Your napping products at a glance, with live countdown timers and total savings summary." 
-      },
-      {
-        src: "img/statistics.png",
-        label: "📊 Statistics",
-        desc: "Track your total savings, avoided items, rethinking rate and full resilience history."
-      },
-      {
-        src: "img/new_product.png",
-        label: "➕ Add Product",
-        desc: "Paste a URL for auto-fill, set your nap duration, add notes — then put it to sleep in seconds."
-      },
-      {
-        src: "img/profile.png",
-        label: "👤 Profile",
-        desc: "Customize nap duration, wake-up alerts, weekly reports, appearance and currency."
-      }
-    ];
+    { src: "img/home.png",    label: "🏠 Home",        desc: "Your napping products at a glance, with live countdown timers and total savings summary." },
+    { src: "img/statistics.png",   label: "📊 Statistics",  desc: "Track your total savings, avoided items, rethinking rate and full resilience history." },
+    { src: "img/new_product.png", label: "➕ Add Product",  desc: "Paste a URL for auto-fill, set your nap duration, add notes — then put it to sleep in seconds." },
+    { src: "img/profile.png", label: "👤 Profile",      desc: "Customize nap duration, wake-up alerts, weekly reports, appearance and currency." }
+  ];
 
   const AUTO_DURATION = 4000;
   let current = 0;
